@@ -7,7 +7,7 @@
  */
 
  class Session {
-    //put your code here
+   
     private $sessionID; //String : containing the PHPSESSID cookie value 
     private $loggedin; //Boolean : TRUE is logged in
     private $userAuthorisation; //Integer - 0=not authorised 1=administrator 2=lecturer 3=student
