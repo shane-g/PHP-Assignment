@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-$pageTitle =   $data['pageTitle'];  //title of the page
+ $pageTitle =   $data['pageTitle'];  //title of the page
  $menuNav   =   $data['menuNav'];    // an array of menu items and associated URLS
  $stringPanel_1 =    $data['stringPanel_1'];  // A string intended of the Left Hand Side of the page
  $panelHead_1=$data['panelHead_1'];// A string containing the LHS panel heading/title
@@ -19,8 +19,6 @@ $pageTitle =   $data['pageTitle'];  //title of the page
 <title><?php echo $pageTitle;?></title>
 <!--
 --Load the bootstrap scripts by reference
---Note the use of the 'integrity' property
---More info on that property here: https://blog.compass-security.com/2015/12/subresource-integrity-html-attribute/
 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
