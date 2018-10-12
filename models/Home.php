@@ -34,12 +34,9 @@ class Home extends Model{
             //get the LHS panel content
             $this->setPanelHead_1();
             $this->setStringPanel_1();
-
-
             //get the Middle panel content
             $this->setPanelHead_2();
-            $this->setStringPanel_2();
-        
+            $this->setStringPanel_2();      
             //get the RHS panel content
             $this->setStringPanel_3();
             $this->setPanelHead_3();
@@ -58,179 +55,198 @@ class Home extends Model{
         }  
         public function setmenuNav(){  //navigation menu depends on whether user is logged on and theuser authorisation level
             //set the menu item data
-            if($this->loggedin){  //these page options are only available to logged in users
+            if($this->loggedin){//these page options are only available to logged in users
                 if($this->session->getUserAuthorisation()==1){  //authorisation level = 1 - Administrator
                 switch ($this->pageID) {
-                    
-                    //HOME Menu items
                     case "home":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        //$this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=students">Students</a>';
-                       // $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=modules">Modules</a>';
-                        //$this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=grades">Grades</a>';
-                        //$this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
-                        //$this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=account">My Account</a>';          
+                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=planes">Planes</a>';
+                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=enthusiasts">Enthusiasts</a>';
+                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
+                       // $this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=gallery">Gallery</a>';           
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
                         break;
-                    /*
-
-                    //MODULES MENU ITEMS
-                    case "modules":
+                    //PLANES MENU ITEMS
+                    case "planes":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_modules">List all modules</a>';
-                        $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_module">Add a module</a>';
-                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=edit_module">Edit a module</a>';  
+                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_planes">List all planes</a>';
+                        $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_plane">Add a plane</a>';
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
                         break;
-                    case "new_module":
+                    case "list_all_planes":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_modules">List all modules</a>';
-                        $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_module">Add a module</a>';
-                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=edit_module">Edit a module</a>';  
+                       // $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_planes">List all planes</a>';
+                        $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_plane">Add a plane</a>';               
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
                         break;
-                    case "edit_module":
+                    case "new_plane":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_modules">List all modules</a>';
-                        $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_module">Add a module</a>';
-                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=edit_module">Edit a module</a>';  
+                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_planes">List all planes</a>';
+                        //$this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_plane">Add a plane</a>';                         
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
                         break;
-                    case "process_edit_module":
+                    //ENTHUSIAST MENU ITEMS
+                    case "enthusiasts":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_modules">List all modules</a>';
-                        $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_module">Add a module</a>';
-                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=edit_module">Edit a module</a>';  
+                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=enthusiasts">Enthusiasts</a>';
+                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=enthusiast_query">Enthusiast Query</a>';  
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
                         break;
-                    case "edit_module_form":
+                    case "enthusiast_query":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_modules">List all modules</a>';
-                        $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_module">Add a module</a>';
-                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=edit_module">Edit a module</a>';  
+                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=enthusiast_query">Enthusiast Query</a>';   
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
                         break;
-                    case "list_all_modules":
+                    case "enthusiast_query_result":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_modules">List all modules</a>';
-                        $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_module">Add a module</a>';
-                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=edit_module">Edit a module</a>';  
+                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=enthusiast_query">Enthusiast Query</a>';  
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
-                        break;*/
-                    
+                        break;
+                    case "enthusiast_account_result":
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>'; 
+                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
+                        break;                   
                     //Default Menu
                     default:
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        //$this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=students">Students</a>';
-                       // $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=modules">Modules</a>';
-                        //$this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=grades">Grades</a>';
-                        //$this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
-                        //$this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=account">My Account</a>';          
+                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=planes">Planes</a>';
+                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=enthusiasts">Enthusiasts</a>';
+                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
+                       // $this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=gallery">Gallery</a>';         
+                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
+                        break;                
+                    }                     
+                }
+                else if($this->session->getUserAuthorisation()==2){  //authorisation level = 2 - Moderator
+                switch ($this->pageID) {                
+                    //HOME Menu items
+                    case "home":
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
+                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=planes">Planes</a>';
+                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=enthusiasts">Enthusiasts</a>';
+                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
+                        //$this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=gallery">Gallery</a>';            
+                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
+                        break;
+                    //PLANES MENU ITEMS
+                    case "planes":
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
+                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_planes">List all planes</a>';
+                        $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_plane">Add a plane</a>';
+                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
+                        break;
+                    case "list_all_planes":
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
+                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_planes">List all planes</a>';
+                        $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_plane">Add a plane</a>';               
+                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
+                        break;
+                    case "new_plane":
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
+                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_planes">List all planes</a>';
+                        $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_plane">Add a plane</a>';                         
+                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
+                        break;
+                    //ENTHUSIAST MENU ITEMS
+                    case "enthusiasts":
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
+                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=enthusiasts">Enthusiasts</a>';
+                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=enthusiast_query">Enthusiast Query</a>';  
+                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
+                        break;
+                    case "enthusiast_query":
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
+                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=enthusiast_query">Enthusiast Query</a>';   
+                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
+                        break;
+                    case "enthusiast_query_result":
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
+                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=enthusiast_query">Enthusiast Query</a>';  
+                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
+                        break;
+                    case "enthusiast_account_result":
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>'; 
+                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
+                        break;                   
+                    //Default Menu
+                    default:
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
+                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=planes">Planes</a>';
+                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=enthusiasts">Enthusiasts</a>';
+                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
+                       // $this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=gallery">Gallery</a>';           
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
                         break;                 
                 }                     
                 }
-                else if($this->session->getUserAuthorisation()==2){//authorisation level = 2 - registerd user
-                switch ($this->pageID) {
-                    
+                else if($this->session->getUserAuthorisation()==3){//authorisation level = 3 - registerd user
+                switch ($this->pageID) {                    
                     //HOME Menu items
                     case "home":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        //$this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=students">Students</a>';
-                        //$this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=modules">Modules</a>';
-                       // $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=grades">Grades</a>';
+                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=planes">Planes</a>';
                         $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
-                       // $this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=account">My Account</a>';          
+                        //$this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=gallery">Gallery</a>';          
+                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
+                        break;                   
+                    //PLANES menu items
+                    case "planes":
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
+                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_planes">View Planes</a>';
+                        //$this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=plane_query">Plane Query</a>';
+                        $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_plane">Add Plane</a>';         
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
                         break;
-                    
-                    //STUDENTS menu items
-                  /*  case "students":
+                    case "new_plane";
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=student_query">Student Query</a>';
-                        //$this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=modules">Modules</a>';
-                        //$this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=grades">Grades</a>';
-                        //$this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
+                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_planes">View Planes</a>';
+                        //$this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=plane_query">Plane Query</a>';
+                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
+                        break;
+                    case "process_new_plane";
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
+                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_planes">View Planes</a>';
+                        //$this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=plane_query">Plane Query</a>';
+                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
+                        break;
+                    case "list_all_planes":
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
+                       // $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_planes">View Planes</a>';
+                        //$this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=plane_query">Plane Query</a>';
+                        $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_plane">Add Plane</a>';
+                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
+                        break;
+                   /* case "plane_query //not used
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
+                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=list_all_planes">View Planes</a>';
+                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=new_plane">Add Plane</a>';
                         //$this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=account">My Account</a>';          
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
                         break;
-                    case "student_query":
+                    case "plane_query_result":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=student_query">Student Query</a>';
-                        //$this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=modules">Modules</a>';
-                        //$this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=grades">Grades</a>';
-                        //$this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
-                        //$this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=account">My Account</a>';          
-                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
-                        break;
-                    case "student_query_result":
-                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=student_query">Student Query</a>';
-                        //$this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=modules">Modules</a>';
-                        //$this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=grades">Grades</a>';
-                        //$this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
-                        //$this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=account">My Account</a>';          
+                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=plane_query">Plane Query</a>';         
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';                        
                         break;
-                    case "student_transcript_result":
-                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        //$this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=student_query">Student Query</a>';
-                        //$this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=modules">Modules</a>';
-                        //$this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=grades">Grades</a>';
-                        //$this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
-                        //$this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=account">My Account</a>';          
+                    case "plane_transcript_result":
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';          
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';                     
-                        break;  
-                    
-                    //GRADES menu items
-                    case "grades":
-                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        //$this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=student_query">Student Query</a>';
-                        //$this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=modules">Modules</a>';
-                       // $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=grades">Enter Grades</a>';
-                        //$this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
-                        //$this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=account">My Account</a>';          
-                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
-                        break; 
-
-                    //MESSAGES Menu items
+                        break;  */
                     case "messages":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        //$this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=student_query">Student Query</a>';
-                        //$this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=modules">Modules</a>';
-                        //$this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=grades">Grades</a>';
-                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
-                        //$this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=account">My Account</a>';          
+                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';        
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
                         break;                    
                     case "message_submit":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        //$this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=student_query">Student Query</a>';
-                        //$this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=modules">Modules</a>';
-                        //$this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=grades">Grades</a>';
-                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
-                        //$this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=account">My Account</a>';          
+                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';     
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
-                        break;                       
-                    //ACCOUNT menu items
-                    /* case "account":
-                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        //$this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=student_query">Student Query</a>';
-                        //$this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=modules">Modules</a>';
-                        //$this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=grades">Grades</a>';
-                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
-                        //$this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=account">My Account</a>';          
-                        $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
-                        break;*/
-                    
+                        break;                                  
                     //Default Menu
                     default:
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
-                        //$this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=students">Students</a>';
-                        //$this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=modules">Modules</a>';
-                        //$this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=grades">Grades</a>';
-                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';
-                       // $this->menuNav[5]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=account">My Account</a>';          
+                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=planes">Planes</a>';
+                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=messages">My Messages</a>';          
                         $this->menuNav[6]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a>';
                         break;                   
                 }                     
@@ -247,17 +263,25 @@ class Home extends Model{
                     case "home":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
                         $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=register">Register</a>';
+                        //$this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=register_admin">Moderator Register</a>'; --Not allowed to register as staff
                         $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=login">Login</a>';
                         break;
                     case "register":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
                         $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=register">Register</a>';
+                        //$this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=register_admin">Moderator Register</a>';
                         $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=login">Login</a>';
                         break;
+                    /*case "register_admin":
+                        $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
+                        $this->menuNav[1]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=register">Register</a>';
+                       // $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=register_admin">Admin Register</a>';
+                        $this->menuNav[2]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=login">Login</a>';
+                        break;*/
                     case "login":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
                         $this->menuNav[3]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=login_enthusiast">Enthusiast Login</a>';
-                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=login_admin">Administrator Login</a>';
+                        $this->menuNav[4]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=login_admin">Staff Login</a>';
                         break;
                     case "logout":
                         $this->menuNav[0]='<a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a>';
@@ -341,3 +365,4 @@ class Home extends Model{
         public function getPanelHead_3(){return $this->panelHead_3;}
         public function getStringPanel_3(){return $this->stringPanel_3;}      
 }//end class
+
