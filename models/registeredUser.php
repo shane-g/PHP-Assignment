@@ -6,8 +6,8 @@ class registeredUser extends Model{
         //lecturer properties
         private $userName; //String : users' ID.
         private $Name;//String : name
-        private $favouriteCompany;
-        private $country;
+        private $favouriteCompany;//String : favourite company
+        private $country; //String : country
         private $password; //String : password    
         
         //properties used by view
@@ -28,7 +28,6 @@ class registeredUser extends Model{
             //class properties based on constructor arguments
             $this->session=$session;
             parent::__construct($this->session->getLoggedIn());
-            //parent::__construct($session);
             $this->userName=$UserName;
             $this->db=$db;
             $this->pageID=$pageID;
@@ -52,7 +51,6 @@ class registeredUser extends Model{
                     $this->panelHead_1='<h3>Logged out</h3>';
                     break;
                 case "process_login":
-                    //TODO
                     $this->panelHead_1 = '<h3>Home Page of '.$this->userName.' '.$this->Name.'</h3>';  
                     break;
                 
@@ -61,7 +59,6 @@ class registeredUser extends Model{
                     $this->panelHead_1='<h3>User Register</h3>';
                     break;
                 case "process_registration":
-                    //TODO
                     $this->panelHead_1 = 'User Registration Result';  
                     break; 
 
@@ -97,7 +94,6 @@ class registeredUser extends Model{
                         $this->session->setUserAuthorisation(0); //privileges set to none
                         $this->stringPanel_1='Login NOT Successful'.$this->loginError;
                     }
-
                     break; 
                 case "process_registration":                 
                     $this->userName=$this->db->real_escape_string($_POST['userName']);
