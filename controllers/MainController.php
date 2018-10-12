@@ -46,7 +46,7 @@ class MainController extends Controller{
         public function updateView(){
             //this SWITCH is the main selector of the next page to load
            if($this->loggedin){  //these page options are only available to logged in users      
-            $this->userAuthorisation=$this->session->getUserAuthorisation();   
+            $this->userAuthorisation=$this->session->getUserAuthorisation();  
             if($this->userAuthorisation==1){
                 //user is logged in as administrator
                switch ($this->pageID) {           
@@ -89,231 +89,386 @@ class MainController extends Controller{
                     //display the view
                     include_once 'views/view_Panel_3.php'; //load the view
                     break;
-                /*case "planes":
+                case "planes":
                     //get the model
-                    $home=new Home($this->pageID,$this->session);                   
+                    $home=new Home($this->pageID,$this->session); 
+                    $plane=new Planes($this->pageID,NULL,$this->db,$this->session);
                     
                     //get the content from the model - put into the $data array for the view:
                     $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['stringPanel_1'] ='under construction';     // A string intended of the Left Hand Side of the page
-                    $data['stringPanel_2'] ='ACCOUNT Page under construction';     // A string intended of the Left Hand Side of the page
-                    $data['stringPanel_3'] ='under construction';     // A string intended of the Right Hand Side of the page
-                    $data['panelHead_1']='<h3>under construction</h3>';// A string containing the LHS panel heading/title
-                    $data['panelHead_2']='<h3>under construction</h3>';// A string containing the ~MIDDLE panel heading/title 
-                    $data['panelHead_3']='<h3>under construction</h3>';// A string containing the RHS panel heading/title
-                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
-                                    
-                    
+                    $data['panelHead_1']=$plane->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$plane->getStringPanel_1(); // A string containing the RHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode                
                     //display the view
-                    include_once 'views/view_3_panel.php'; //load the view
+                    include_once 'views/view_Panel_3.php'; //load the view
                     break;
-                case "students":
+                case "enthusiasts":
                     //get the models
                     $home=new Home($this->pageID,$this->session); 
-                    $student=new Student($this->pageID,NULL,$this->db,$this->session);
+                    $enthusiast=new registeredUser($this->pageID,NULL,$this->db,$this->session);
                     
                     //get the content from the model - put into the $data array for the view:
                     $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['panelHead_1']=$student->getPanelHead_1(); 
-                    $data['stringPanel_1'] =$student->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_2']=$student->getPanelHead_2();// A string containing the RHS panel heading/title
-                    $data['stringPanel_2'] =$student->getStringPanel_2();     // A string intended of the Right Hand Side of the page
+                    $data['panelHead_1']=$enthusiast->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$enthusiast->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_2']=$enthusiast->getPanelHead_2();// A string containing the RHS panel heading/title
+                    $data['stringPanel_2'] =$enthusiast->getStringPanel_2();     // A string intended of the Right Hand Side of the page
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
                     
                     //display the view
-                    include_once 'views/view_1_panel.php'; //load the view
+                    include_once 'views/view_Panel_1.php'; //load the view
                     break;
-                case "student_query":
+                case "enthusiast_query":
                     //get the models
                     $home=new Home($this->pageID,$this->session); 
-                    $student=new Student($this->pageID,NULL,$this->db,$this->session);
+                    $enthusiast=new registeredUser($this->pageID,NULL,$this->db,$this->session);
                     
                     //get the content from the model - put into the $data array for the view:
                     $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['panelHead_1']=$student->getPanelHead_1(); 
-                    $data['stringPanel_1'] =$student->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_2']=$student->getPanelHead_2();// A string containing the RHS panel heading/title
-                    $data['stringPanel_2'] =$student->getStringPanel_2();     // A string intended of the Right Hand Side of the page
+                    $data['panelHead_1']=$enthusiast->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$enthusiast->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_2']=$enthusiast->getPanelHead_2();// A string containing the RHS panel heading/title
+                    $data['stringPanel_2'] =$enthusiast->getStringPanel_2();     // A string intended of the Right Hand Side of the page
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
                     
                     //display the view
-                    include_once 'views/view_2_panel.php'; //load the view
+                    include_once 'views/view_Panel_2.php'; //load the view
                     break;
-                case "student_query_result":
+                case "enthusiast_query_result":
                     //get the selected student ID from the transcript query form
-                    $studentID=$_POST['studentID'];
+                    $enthusiastID=$_POST['userName'];
 
                     //get the models
                     $home=new Home($this->pageID,$this->session);
-                    $student=new Student($this->pageID,$studentID,$this->db,$this->session); 
+                    $enthusiast=new registeredUser($this->pageID,$enthusiastID,$this->db,$this->session); 
                     $data=[];  //initialise an empty data array
                     
                     //get the content from the model - put into the $data array for the view:
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['panelHead_1']=$student->getPanelHead_1(); 
-                    $data['stringPanel_1'] =$student->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_2']=$student->getPanelHead_2();// A string containing the RHS panel heading/title
-                    $data['stringPanel_2'] =$student->getStringPanel_2();     // A string intended of the Right Hand Side of the page
+                    $data['panelHead_1']=$enthusiast->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$enthusiast->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_2']=$enthusiast->getPanelHead_2();// A string containing the RHS panel heading/title
+                    $data['stringPanel_2'] =$enthusiast->getStringPanel_2();     // A string intended of the Right Hand Side of the page
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
                     
                     //display the view
-                    include_once 'views/view_2_panel.php'; //load the view
+                    include_once 'views/view_Panel_2.php'; //load the view
                     break;             
-                case "student_transcript_result":
+                case "enthusiast_account_result":
                     //get the selected student ID from the transcript query form
-                    $studentID=$_POST['studentID'];
+                    $enthusiastID=$_POST['userName'];
                     
                     //get the models
                     $home=new Home($this->pageID,$this->session); 
-                    $student=new Student($this->pageID,$studentID,$this->db,$this->session); 
+                    $enthusiast=new registeredUser($this->pageID,$enthusiastID,$this->db,$this->session); 
                     
                     //get the content from the models - put into the $data array for the view:
                     $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['panelHead_1']=$student->getPanelHead_1(); 
-                    $data['stringPanel_1'] =$student->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_2']=$student->getPanelHead_2();// A string containing the RHS panel heading/title
-                    $data['stringPanel_2'] =$student->getStringPanel_2();     // A string intended of the Right Hand Side of the page
+                    $data['panelHead_1']=$enthusiast->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$enthusiast->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_2']=$enthusiast->getPanelHead_2();// A string containing the RHS panel heading/title
+                    $data['stringPanel_2'] =$enthusiast->getStringPanel_2();     // A string intended of the Right Hand Side of the page
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
                                      
                     //display the view
-                    include_once 'views/view_2_panel.php'; //load the view
+                    include_once 'views/view_Panel_2.php'; //load the view
                     break;                                      
-                case "modules":
+                case "list_all_planes":
                     //get the model
-                    $home=new Home($this->pageID,$this->session);  
+                    $home=new Home($this->pageID,$this->session);
+                    $plane=new Planes($this->pageID,$this->loggedin,$this->db); 
                     
                     //get the content from the model - put into the $data array for the view:
                     $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['stringPanel_1'] ='Use the links above to manage Modules';     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_1']='<h3>Module Management</h3>';// A string containing the LHS panel heading/title
+                    $data['stringPanel_1'] =$plane->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_1']=$plane->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
+
+                    //display the view
+                    include_once 'views/view_Panel_1.php'; //load the view
+                    break; 
+                case "new_plane":
+                    //get the model
+                    $home=new Home($this->pageID,$this->session);
+                    $plane=new Planes($this->pageID,$this->loggedin,$this->db); 
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['stringPanel_1'] =$plane->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_1']=$plane->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
+                    //display the view
+                    include_once 'views/view_Panel_1.php'; //load the view
+                    break; 
+                case "process_new_plane":
+                    $home=new Home($this->pageID,$this->session); 
+                    $plane=new Planes($this->pageID,$this->loggedin,$this->db); 
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['stringPanel_1'] =$plane->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_1']=$plane->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
+                    //display the view
+                    include_once 'views/view_Panel_1.php'; //load the view
+                    break; 
+                case "logout":
+                    //get the models
+                    $admin = new admin($this->pageID, NULL, $this->db,$this->session);
+                    $home=new Home($this->pageID,$this->session);    
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['stringPanel_1'] =$home->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['stringPanel_2'] =$admin->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['stringPanel_3'] =$home->getStringPanel_3();     // A string intended of the Right Hand Side of the page
+                    $data['panelHead_1']=$home->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $data['panelHead_2']=$admin->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $data['panelHead_3']=$home->getPanelHead_3();// A string containing the RHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
+                    
+                    //display the view
+                    include_once 'views/view_Panel_3.php'; //load the view
+                    break;
+                default:
+                    //get the model
+                    $home=new Home($this->pageID,$this->session);
+
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['stringPanel_1'] =$home->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['stringPanel_2'] =$home->getStringPanel_2();     // A string intended of the Left Hand Side of the page
+                    $data['stringPanel_3'] =$home->getStringPanel_3();     // A string intended of the Right Hand Side of the page
+                    $data['panelHead_1']=$home->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $data['panelHead_2']=$home->getPanelHead_2();
+                    $data['panelHead_3']=$home->getPanelHead_3();// A string containing the RHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
+                    
+                    //display the view
+                    include_once 'views/view_Panel_3.php';  
+                    break;
+            }  
+            }           
+            else if($this->userAuthorisation==2){
+                //user is logged in as moderator
+               switch ($this->pageID) {           
+                case "home":
+                    //get the model
+                    $home=new Home($this->pageID,$this->session);
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['stringPanel_1'] =$home->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['stringPanel_2'] =$home->getStringPanel_2();     // A string intended of the Left Hand Side of the page
+                    $data['stringPanel_3'] =$home->getStringPanel_3();     // A string intended of the Right Hand Side of the page                    
+                    $data['panelHead_1']=$home->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $data['panelHead_3']=$home->getPanelHead_3();// A string containing the RHS panel heading/title
+                    $data['panelHead_2']=$home->getPanelHead_2(); 
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
+                    //
+                    //display the view
+                    include_once 'views/view_Panel_3.php';  //load the view
+                    break;
+                case "messages":
+                    //get the model
+                    $message=new Message($this->pageID,NULL,$this->db,$this->session);
+                    $home=new Home($this->pageID,$this->session);    
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['stringPanel_1'] =$message->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['stringPanel_2'] =$message->getStringPanel_2();     // A string intended of the Left Hand Side of the page
+                   // $data['stringPanel_3'] ='under construction';     // A string intended of the Right Hand Side of the page
+                    $data['panelHead_1']=$message->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $data['panelHead_2']=$message->getPanelHead_2();// A string containing the ~MIDDLE panel heading/title  
+                   // $data['panelHead_3']='<h3>under construction</h3>';// A string containing the RHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
+                                       
+                    //display the view
+                    include_once 'views/view_Panel_2.php'; //load the view
+                    break;
+                case "message_submit":
+                    //get the model
+                    $home=new Home($this->pageID,$this->session);        
+                    $message=new Message($this->pageID,NULL,$this->db,$this->session);
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['stringPanel_1'] =$message->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['stringPanel_2'] =$message->getStringPanel_2();     // A string intended of the Left Hand Side of the page
+                    //$data['stringPanel_3'] ='under construction';     // A string intended of the Right Hand Side of the page
+                    $data['panelHead_1']=$message->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $data['panelHead_2']=$message->getPanelHead_2(); ;// A string containing the ~MIDDLE panel heading/title 
+                    //$data['panelHead_3']='<h3>under construction</h3>';// A string containing the RHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode         
+                    //display the view
+                    include_once 'views/view_Panel_2.php'; //load the view
+                    break;
+                case "planes":
+                    //get the model
+                    $home=new Home($this->pageID,$this->session); 
+                    $plane=new Planes($this->pageID,NULL,$this->db,$this->session);
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['panelHead_1']=$plane->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$plane->getStringPanel_1(); // A string containing the RHS panel heading/title
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
                                     
-
+                    
                     //display the view
-                    include_once 'views/view_1_panel.php'; //load the view
+                    include_once 'views/view_Panel_1.php'; //load the view
                     break;
-                case "list_all_modules":
-                    //get the model
-                    $home=new Home($this->pageID,$this->session);
-                    $modules=new Modules($this->pageID,$this->loggedin,$this->db); 
+                case "enthusiasts":
+                    //get the models
+                    $home=new Home($this->pageID,$this->session); 
+                    $enthusiast=new registeredUser($this->pageID,NULL,$this->db,$this->session);
                     
                     //get the content from the model - put into the $data array for the view:
                     $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['stringPanel_1'] =$modules->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_1']=$modules->getPanelHead_1();// A string containing the LHS panel heading/title
-                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
+                    $data['panelHead_1']=$enthusiast->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$enthusiast->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                   // $data['panelHead_2']=$enthusiast->getPanelHead_2();// A string containing the RHS panel heading/title
+                    //$data['stringPanel_2'] =$enthusiast->getStringPanel_2();     // A string intended of the Right Hand Side of the page
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
+                    
+                    //display the view
+                    include_once 'views/view_Panel_1.php'; //load the view
+                    break;
+                case "enthusiast_query":
+                    //get the models
+                    $home=new Home($this->pageID,$this->session); 
+                    $enthusiast=new registeredUser($this->pageID,NULL,$this->db,$this->session);
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['panelHead_1']=$enthusiast->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$enthusiast->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_2']=$enthusiast->getPanelHead_2();// A string containing the RHS panel heading/title
+                    $data['stringPanel_2'] =$enthusiast->getStringPanel_2();     // A string intended of the Right Hand Side of the page
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
+                    
+                    //display the view
+                    include_once 'views/view_Panel_2.php'; //load the view
+                    break;
+                case "enthusiast_query_result":
+                    //get the selected student ID from the transcript query form
+                    $enthusiastID=$_POST['userID'];
 
-                    //display the view
-                    include_once 'views/view_1_panel.php'; //load the view
-                    break; 
-                case "new_module":
-                    //get the model
+                    //get the models
                     $home=new Home($this->pageID,$this->session);
-                    $modules=new Modules($this->pageID,$this->loggedin,$this->db); 
+                    $enthusiast=new registeredUser($this->pageID,$enthusiastID,$this->db,$this->session); 
+                    $data=[];  //initialise an empty data array
                     
                     //get the content from the model - put into the $data array for the view:
-                    $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['stringPanel_1'] =$modules->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_1']=$modules->getPanelHead_1();// A string containing the LHS panel heading/title
-                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
-                    //display the view
-                    include_once 'views/view_1_panel.php'; //load the view
-                    break; 
-                case "edit_module":
-                    //get the model
-                    $home=new Home($this->pageID,$this->session);
-                    $modules=new Modules($this->pageID,$this->loggedin,$this->db); 
+                    $data['panelHead_1']=$enthusiast->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$enthusiast->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_2']=$enthusiast->getPanelHead_2();// A string containing the RHS panel heading/title
+                    $data['stringPanel_2'] =$enthusiast->getStringPanel_2();     // A string intended of the Right Hand Side of the page
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
                     
-                    //get the content from the model - put into the $data array for the view:
-                    $data=[];  //initialise an empty data array
-                    $data['pageTitle']=$home->getPageTitle(); 
-                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['stringPanel_1'] =$modules->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_1']=$modules->getPanelHead_1();// A string containing the LHS panel heading/title
-                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
                     //display the view
-                    include_once 'views/view_1_panel.php'; //load the view
-                    break; 
-                case "edit_module_form":
-                    //get the model
-                    $home=new Home($this->pageID,$this->session);
-                    $modules=new Modules($this->pageID,$this->loggedin,$this->db); 
+                    include_once 'views/view_Panel_2.php'; //load the view
+                    break;             
+                case "enthusiast_account_result":
+                    //get the selected student ID from the transcript query form
+                    $enthusiastID=$_POST['userID'];
                     
-                    //get the content from the model - put into the $data array for the view:
-                    $data=[];  //initialise an empty data array
-                    $data['pageTitle']=$home->getPageTitle(); 
-                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['stringPanel_1'] =$modules->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_1']=$modules->getPanelHead_1();// A string containing the LHS panel heading/title
-                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
-                    //display the view
-                    include_once 'views/view_1_panel.php'; //load the view
-                    break; 
-                case "process_edit_module":
-                    //get the model
-                    $home=new Home($this->pageID,$this->session);
-                    $modules=new Modules($this->pageID,$this->loggedin,$this->db); 
-                    
-                    //get the content from the model - put into the $data array for the view:
-                    $data=[];  //initialise an empty data array
-                    $data['pageTitle']=$home->getPageTitle(); 
-                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['stringPanel_1'] =$modules->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_1']=$modules->getPanelHead_1();// A string containing the LHS panel heading/title
-                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
-                    //display the view
-                    include_once 'views/view_1_panel.php'; //load the view
-                    break; 
-                case "process_new_module":
-                    //get the model
+                    //get the models
                     $home=new Home($this->pageID,$this->session); 
-                    $modules=new Modules($this->pageID,$this->loggedin,$this->db); 
+                    $enthusiast=new registeredUser($this->pageID,$enthusiastID,$this->db,$this->session); 
                     
-                    //get the content from the model - put into the $data array for the view:
+                    //get the content from the models - put into the $data array for the view:
                     $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['stringPanel_1'] =$modules->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_1']=$modules->getPanelHead_1();// A string containing the LHS panel heading/title
-                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
-                    //display the view
-                    include_once 'views/view_1_panel.php'; //load the view
-                    break;                  
-                case "grades":
-                    //get the model
-                    $home=new Home($this->pageID,$this->session); 
-                    
-                    //get the content from the model - put into the $data array for the view:
-                    $data=[];  //initialise an empty data array
-                    $data['pageTitle']=$home->getPageTitle(); 
-                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['stringPanel_1'] ='under construction';     // A string intended of the Left Hand Side of the page
-                    $data['stringPanel_2'] ='GRADES Page under construction';     // A string intended of the Left Hand Side of the page
-                    $data['stringPanel_3'] ='under construction';     // A string intended of the Right Hand Side of the page
-                    $data['panelHead_1']='<h3>under construction</h3>';// A string containing the LHS panel heading/title
-                    $data['panelHead_2']='<h3>under construction</h3>';// A string containing the ~MIDDLE panel heading/title
-                    $data['panelHead_3']='<h3>under construction</h3>';// A string containing the RHS panel heading/title
+                    $data['panelHead_1']=$enthusiast->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$enthusiast->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_2']=$enthusiast->getPanelHead_2();// A string containing the RHS panel heading/title
+                    $data['stringPanel_2'] =$enthusiast->getStringPanel_2();     // A string intended of the Right Hand Side of the page
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
                                      
+                    //display the view
+                    include_once 'views/view_Panel_2.php'; //load the view
+                    break;                                      
+                case "list_all_planes":
+                    //get the model
+                    $home=new Home($this->pageID,$this->session);
+                    $plane=new Planes($this->pageID,$this->loggedin,$this->db); 
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['stringPanel_1'] =$plane->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_1']=$plane->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
 
                     //display the view
-                    include_once 'views/view_3_panel.php'; //load the view
-                    break;             */
+                    include_once 'views/view_Panel_1.php'; //load the view
+                    break; 
+                case "new_plane":
+                    //get the model
+                    $home=new Home($this->pageID,$this->session);
+                    $plane=new Planes($this->pageID,$this->loggedin,$this->db); 
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['stringPanel_1'] =$plane->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_1']=$plane->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
+                    //display the view
+                    include_once 'views/view_Panel_1.php'; //load the view
+                    break; 
+                case "process_new_plane":
+                    $home=new Home($this->pageID,$this->session); 
+                    $plane=new Planes($this->pageID,$this->loggedin,$this->db); 
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['stringPanel_1'] =$plane->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_1']=$plane->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
+                    //display the view
+                    include_once 'views/view_Panel_1.php'; //load the view
+                    break; 
                 case "logout":
                     //get the models
                    // $lecturer = new Lecturer($this->pageID, NULL, $this->db,$this->session);
@@ -357,7 +512,7 @@ class MainController extends Controller{
                     break;
             }  
             }
-            else if($this->userAuthorisation==2){
+            else if($this->userAuthorisation==3){
                 //user is logged in as enthusiast
                switch ($this->pageID) {           
                 case "home":
@@ -381,23 +536,24 @@ class MainController extends Controller{
                     break;
                 /*case "account":
                     //get the model
-                    $home=new Home($this->pageID,$this->session);                   
+                    $home=new Home($this->pageID,$this->session);     
+                    $enthusiast = new registeredUser($this->pageID, NULL, $this->db,$this->session);
                     
                     //get the content from the model - put into the $data array for the view:
                     $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['stringPanel_1'] ='under construction';     // A string intended of the Left Hand Side of the page
-                    $data['stringPanel_2'] ='ACCOUNT Page under construction';     // A string intended of the Left Hand Side of the page
-                    $data['stringPanel_3'] ='under construction';     // A string intended of the Right Hand Side of the page
-                    $data['panelHead_1']='<h3>under construction</h3>';// A string containing the LHS panel heading/title
-                    $data['panelHead_2']='<h3>under construction</h3>';// A string containing the ~MIDDLE panel heading/title 
-                    $data['panelHead_3']='<h3>under construction</h3>';// A string containing the RHS panel heading/title
+                    $data['stringPanel_1'] =$enthusiast->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    //$data['stringPanel_2'] =$enthusiast->getStringPanel_2();     // A string intended of the Left Hand Side of the page
+                   // $data['stringPanel_3'] ='under construction';     // A string intended of the Right Hand Side of the page
+                    $data['panelHead_1']=$enthusiast->getStringPanel_1();// A string containing the LHS panel heading/title
+                    //$data['panelHead_2']=$enthusiast->getStringPanel_2();// A string containing the ~MIDDLE panel heading/title 
+                    //$data['panelHead_3']='<h3>under construction</h3>';// A string containing the RHS panel heading/title
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
                                     
                     
                     //display the view
-                    include_once 'views/view_3_panel.php'; //load the view
+                    include_once 'views/view_Panel_1.php'; //load the view
                     break;*/
                 case "messages":
                     //get the model
@@ -419,7 +575,21 @@ class MainController extends Controller{
                     
                     //display the view
                     include_once 'views/view_Panel_2.php'; //load the view
-                    break;     
+                    break;       
+               /* case "gallery":
+                    header("content-type: Image/An-225.jpg");
+                   // $home=new Home($this->pageID,$this->session); 
+                    //"<table>
+                   // <tr>
+                    //echo "<img src="Images/An-225.jpg" height="100" width="100" />";
+                    //<img src="Images/B777-200LR.jpg" height="100" width="100" />
+                    //<img src="Images/C130.jpg" height="100" width="100" />
+
+                   // </tr>
+                   // </table>"
+                    
+                    include_once 'views/view_Panel_1.php';
+                    break;*/
                 case "message_submit":
                     //get the model
                     $home=new Home($this->pageID,$this->session);        
@@ -442,101 +612,126 @@ class MainController extends Controller{
                 case "planes":
                     //get the models
                     $home=new Home($this->pageID,$this->session); 
-                   // $student=new Student($this->pageID,NULL,$this->db,$this->session);
+                    $plane=new Planes($this->pageID,NULL,$this->db,$this->session);
                     
                     //get the content from the model - put into the $data array for the view:
                     $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['panelHead_1']=$student->getPanelHead_1(); 
-                    $data['stringPanel_1'] =$student->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_2']=$student->getPanelHead_2();// A string containing the RHS panel heading/title
-                    $data['stringPanel_2'] =$student->getStringPanel_2();     // A string intended of the Right Hand Side of the page
+                    $data['panelHead_1']=$plane->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$plane->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    //$data['panelHead_2']=$plane->getPanelHead_2();// A string containing the RHS panel heading/title
+                   // $data['stringPanel_2'] =$plane->getStringPanel_2();     // A string intended of the Right Hand Side of the page
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
                     
                     //display the view
                     include_once 'views/view_Panel_1.php'; //load the view
                     break;
-               /* case "student_query":
-                    //get the models
-                    $home=new Home($this->pageID,$this->session); 
-                    $student=new Student($this->pageID,NULL,$this->db,$this->session);
+                case "new_plane":
+                    //get the model
+                    $home=new Home($this->pageID,$this->session);
+                    $plane=new Planes($this->pageID,$this->loggedin,$this->db); 
                     
                     //get the content from the model - put into the $data array for the view:
                     $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['panelHead_1']=$student->getPanelHead_1(); 
-                    $data['stringPanel_1'] =$student->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_2']=$student->getPanelHead_2();// A string containing the RHS panel heading/title
-                    $data['stringPanel_2'] =$student->getStringPanel_2();     // A string intended of the Right Hand Side of the page
+                    $data['stringPanel_1'] =$plane->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_1']=$plane->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
+                    //display the view
+                    include_once 'views/view_Panel_1.php'; //load the view
+                    break; 
+                case "process_new_plane":
+                    $home=new Home($this->pageID,$this->session); 
+                    $plane=new Planes($this->pageID,$this->loggedin,$this->db); 
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['stringPanel_1'] =$plane->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_1']=$plane->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
+                    //display the view
+                    include_once 'views/view_Panel_1.php'; //load the view
+                    break; 
+                case "list_all_planes":
+                    //get the model
+                    $home=new Home($this->pageID,$this->session);
+                    $plane=new Planes($this->pageID,$this->loggedin,$this->db); 
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['stringPanel_1'] =$plane->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_1']=$plane->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode               
+
+                    //display the view
+                    include_once 'views/view_Panel_1.php'; //load the view
+                    break; 
+                /*case "plane_query":
+                    //get the models
+                    $home=new Home($this->pageID,$this->session); 
+                    $plane=new Planes($this->pageID,NULL,$this->db,$this->session);
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['panelHead_1']=$plane->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$plane->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_2']=$plane->getPanelHead_2();// A string containing the RHS panel heading/title
+                    $data['stringPanel_2'] =$plane->getStringPanel_2();     // A string intended of the Right Hand Side of the page
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
                     
                     //display the view
-                    include_once 'views/view_2_panel.php'; //load the view
+                    include_once 'views/view_Panel_2.php'; //load the view
                     break;
-                case "student_query_result":
-                    //get the selected student ID from the transcript query form
-                    $studentID=$_POST['studentID'];
+                case "plane_query_result":
+                    //get the selected manufacturer from the transcript query form
+                    $planeID=$_POST['planeID'];
 
                     //get the models
                     $home=new Home($this->pageID,$this->session);
-                    $student=new Student($this->pageID,$studentID,$this->db,$this->session); 
+                    $plane=new Planes($this->pageID,$planeID,$this->db,$this->session); 
                     $data=[];  //initialise an empty data array
                     
                     //get the content from the model - put into the $data array for the view:
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['panelHead_1']=$student->getPanelHead_1(); 
-                    $data['stringPanel_1'] =$student->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_2']=$student->getPanelHead_2();// A string containing the RHS panel heading/title
-                    $data['stringPanel_2'] =$student->getStringPanel_2();     // A string intended of the Right Hand Side of the page
+                    $data['panelHead_1']=$plane->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$plane->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_2']=$plane->getPanelHead_2();// A string containing the RHS panel heading/title
+                    $data['stringPanel_2'] =$plane->getStringPanel_2();     // A string intended of the Right Hand Side of the page
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
                     
                     //display the view
-                    include_once 'views/view_2_panel.php'; //load the view
+                    include_once 'views/view_Panel_2.php'; //load the view
                     break;             
-                case "student_transcript_result":
-                    //get the selected student ID from the transcript query form
-                    $studentID=$_POST['studentID'];
+                case "plane_transcript_result":
+                    //get the selected manufacturer from the transcript query form
+                    $planeID=$_POST['planeID'];
                     
                     //get the models
                     $home=new Home($this->pageID,$this->session); 
-                    $student=new Student($this->pageID,$studentID,$this->db,$this->session); 
+                    $plane=new Planes($this->pageID,$planeID,$this->db,$this->session); 
                     
                     //get the content from the models - put into the $data array for the view:
                     $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['panelHead_1']=$student->getPanelHead_1(); 
-                    $data['stringPanel_1'] =$student->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    $data['panelHead_2']=$student->getPanelHead_2();// A string containing the RHS panel heading/title
-                    $data['stringPanel_2'] =$student->getStringPanel_2();     // A string intended of the Right Hand Side of the page
+                    $data['panelHead_1']=$plane->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$plane->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_2']=$plane->getPanelHead_2();// A string containing the RHS panel heading/title
+                    $data['stringPanel_2'] =$plane->getStringPanel_2();     // A string intended of the Right Hand Side of the page
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
                                      
                     //display the view
-                    include_once 'views/view_2_panel.php'; //load the view
-                    break; */                                                
-               /* case "grades":
-                    //get the model
-                    $home=new Home($this->pageID,$this->session); 
-                    
-                    //get the content from the model - put into the $data array for the view:
-                    $data=[];  //initialise an empty data array
-                    $data['pageTitle']=$home->getPageTitle(); 
-                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['stringPanel_1'] ='under construction';     // A string intended of the Left Hand Side of the page
-                    $data['stringPanel_2'] ='GRADES Page under construction';     // A string intended of the Left Hand Side of the page
-                    $data['stringPanel_3'] ='under construction';     // A string intended of the Right Hand Side of the page
-                    $data['panelHead_1']='<h3>under construction</h3>';// A string containing the LHS panel heading/title
-                    $data['panelHead_2']='<h3>under construction</h3>';// A string containing the ~MIDDLE panel heading/title
-                    $data['panelHead_3']='<h3>under construction</h3>';// A string containing the RHS panel heading/title
-                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
-                                     
-
-                    //display the view
-                    include_once 'views/view_3_panel.php'; //load the view
-                    break;    */        
+                    include_once 'views/view_Panel_2.php'; //load the view
+                    break;   */                                                 
                 case "logout":
                     //get the models
                   //  $admin = new admin($this->pageID, NULL, $this->db,$this->session);
@@ -606,80 +801,43 @@ class MainController extends Controller{
                 case 'login':
                     //get the model
                     $home=new Home($this->pageID,$this->session);
-                   // $enthusiast = new registeredUser($this->pageID, NULL, $this->db,$this->session);
-                    
+                    $enthusiast = new registeredUser($this->pageID, NULL, $this->db,$this->session);
+                    $admin = new admin($this->pageID, NULL, $this->db,$this->session);
                     //get the content from the model - put into the $data array for the view:
                     $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
                     $data['stringPanel_1'] =$home->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    //$data['stringPanel_2'] =$lecturer->getStringPanel_2();     // A string intended of the Left Hand Side of the page
-
                     $data['panelHead_1']=$home->getPanelHead_1();// A string containing the LHS panel heading/title
-                    //$data['panelHead_2']=$lecturer->getPanelHead_2();// A string containing the ~MIDDLE panel heading/title 
-
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
-
                     //display the view
                     include_once 'views/view_Panel_1.php'; //load the view
                     break;               
-                /*case 'login_student':
-                    //get the model
-                    $home=new Home($this->pageID,$this->session);
-                   // $student = new Student($this->pageID, NULL, $this->db,$this->session);
-                    
-                    //get the content from the model - put into the $data array for the view:
-                    $data=[];  //initialise an empty data array
-                    $data['pageTitle']=$home->getPageTitle(); 
-                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
-                    $data['stringPanel_1'] =$student->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-
-
-                    $data['panelHead_1']=$student->getPanelHead_1();// A string containing the LHS panel heading/title
-
-
-                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
-
-                    //display the view
-                    include_once 'views/view_Panel_1.php'; //load the view
-                    break;   */
                 case 'login_enthusiast':
                     //get the model
                     $home=new Home($this->pageID,$this->session);
                     $enthusiast = new registeredUser($this->pageID, NULL, $this->db,$this->session);
-                   // $enthusiast = new registeredUser($pageID, NULL, $db, $session);
                     //get the content from the model - put into the $data array for the view:
                     $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
                     $data['stringPanel_1'] =$enthusiast->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    //$data['stringPanel_2'] =$lecturer->getStringPanel_2();     // A string intended of the Left Hand Side of the page
-
                     $data['panelHead_1']=$enthusiast->getPanelHead_1();// A string containing the LHS panel heading/title
-                    //$data['panelHead_2']=$lecturer->getPanelHead_2();// A string containing the ~MIDDLE panel heading/title 
-
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
-
                     //display the view
                     include_once 'views/view_Panel_1.php'; //load the view
                     break;   
                 case 'login_admin':
                     //get the model
                     $home=new Home($this->pageID,$this->session);
-                    $admin = new admin($this->pageID, NULL, $this->db,$this->session);
-                    
+                    $admin = new admin($this->pageID, NULL, $this->db,$this->session);                   
                     //get the content from the model - put into the $data array for the view:
                     $data=[];  //initialise an empty data array
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
                     $data['stringPanel_1'] =$admin->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    //$data['stringPanel_2'] =$lecturer->getStringPanel_2();     // A string intended of the Left Hand Side of the page
-
                     $data['panelHead_1']=$admin->getPanelHead_1();// A string containing the LHS panel heading/title
-                    //$data['panelHead_2']=$lecturer->getPanelHead_2();// A string containing the ~MIDDLE panel heading/title 
-
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
-
                     //display the view
                     include_once 'views/view_Panel_1.php'; //load the view
                     break;   
@@ -702,7 +860,7 @@ class MainController extends Controller{
                     //display the view
                     include_once 'views/view_Panel_1.php'; //load the view
                     break;
-                case 'process_login_admin':
+                case 'process_mlogin':
                     //get the models
                     $admin = new admin($this->pageID, NULL, $this->db,$this->session);
                     $this->loggedin=$admin->getLoggedin(); //update the status of the login variable
@@ -730,16 +888,32 @@ class MainController extends Controller{
                     $data['pageTitle']=$home->getPageTitle(); 
                     $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
                     $data['stringPanel_1'] =$enthusiast->getStringPanel_1();     // A string intended of the Left Hand Side of the page
-                    //$data['stringPanel_2'] =$lecturer->getStringPanel_2();     // A string intended of the Left Hand Side of the page
 
                     $data['panelHead_1']=$enthusiast->getPanelHead_1();// A string containing the LHS panel heading/title
-                    //$data['panelHead_2']=$lecturer->getPanelHead_2();// A string containing the ~MIDDLE panel heading/title 
 
                     $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
 
                     //display the view
                     include_once 'views/view_Panel_1.php'; //load the view
                     break;    
+               /* case "register_admin":
+                    $home=new Home($this->pageID,$this->session); 
+                    $admin = new admin($this->pageID, NULL, $this->db,$this->session);
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['stringPanel_1'] =$admin->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $data['panelHead_1']=$admin->getPanelHead_1();// A string containing the LHS panel heading/title
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
+
+                    //display the view
+                    include_once 'views/view_Panel_1.php'; //load the view
+                    break;*/
+                    
+                    
+                    break;
                 case "process_registration":
                     //get the model
                     $home=new Home($this->pageID,$this->session);
@@ -756,6 +930,23 @@ class MainController extends Controller{
                     //display the view
                     include_once 'views/view_Panel_1.php'; //load the view
                     break; 
+                /*case "process_admin_registration":
+                    //get the model
+                    $home=new Home($this->pageID,$this->session);
+                    $admin = new admin($this->pageID, NULL, $this->db, $this->session);
+                   // $enthusiast = new registeredUser($this->pageID, NULL, $this->db,$this->session);
+                    
+                    //get the content from the model - put into the $data array for the view:
+                    $data=[];  //initialise an empty data array
+                    $data['pageTitle']=$home->getPageTitle(); 
+                    $data['menuNav']   =$home->getMenuNav();       // an array of menu items and associated URLS
+                    $data['panelHead_1']=$admin->getPanelHead_1(); 
+                    $data['stringPanel_1'] =$admin->getStringPanel_1();     // A string intended of the Left Hand Side of the page
+                    $this->data=$data; //put the $data array into the class property do it can be accedded in DEBUG mode
+                    
+                    //display the view
+                    include_once 'views/view_Panel_1.php'; //load the view
+                    break; */
                 default:
                     //get the model
                     $home=new Home($this->pageID,$this->session);
