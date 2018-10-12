@@ -5,9 +5,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
- $pageTitle =   $data['pageTitle'];  //title of the page
- $menuNav   =   $data['menuNav'];    // an array of menu items and associated URLS
- $stringPanel_1 =    $data['stringPanel_1'];  // A string intended of the Left Hand Side of the page
+ $pageTitle = $data['pageTitle'];  //title of the page
+ $menuNav = $data['menuNav'];    // an array of menu items and associated URLS
+ $stringPanel_1 = $data['stringPanel_1'];  // A string intended of the Left Hand Side of the page
  $panelHead_1=$data['panelHead_1'];// A string containing the LHS panel heading/title
  ?>
 <!DOCTYPE html>
