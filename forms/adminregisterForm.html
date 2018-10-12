@@ -1,0 +1,10 @@
+<form method="post" action="index.php?pageID=process_admin_registration">
+<div class="form-group">
+<label for="UserName">Username:</label><input required type="text" class="form-control" id="UserName" name="UserName" pattern="[a-zA-Z0-9]{5,10}" title="User ID (5 to 10 Characters) - Enter Characters A-Z,a-z and/or numbers 0-9">
+<label for="Name">Admin Name:</label><input required type="text" class="form-control" id="Name" name="Name" pattern="[a-zA-Z0-9óáéí']{1,48}" title="First Name(up to 45 Characters)">
+<label for="user">Account Type:</label><input type="text" class="form-control" id="user" name="user" pattern="[a-zA-Z0-9óáéí']" title="user (up to 45 Characters)" >
+<label for="userPass1">Password</label><input required type="password" class="form-control" id="userPass1" name="userPass1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+<label for="userPass2">Confirm password:</label><input required type="password" class="form-control" id="userPass2" name="userPass2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must match the above password exactly">
+</div>
+<button type="submit" class="btn btn-default">Register</button>
+</form>
