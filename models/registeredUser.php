@@ -3,7 +3,7 @@ class registeredUser extends Model{
     
         //CLASS PROPERTIES
         
-        //lecturer properties
+        //registeredUser properties
         private $userID; //String : users' ID.
         private $firstName;//String : name
         private $favouriteCompany;//String : favourite company
@@ -61,7 +61,6 @@ class registeredUser extends Model{
                     $this->panelHead_1='<h3>Enthusiast Query</h3>';
                     break;
                 case "process_login":
-                    //TODO
                     $this->panelHead_1 = '<h3>Home Page of '.$this->firstName.'</h3>';  
                     break;               
                 //REGISTRATION
@@ -156,12 +155,12 @@ class registeredUser extends Model{
         public function setPanelHead_2(){
             //if($this->loggedin){
                 switch ($this->pageID) {
-					case "login":
-                    $this->panelHead_2='';
-                    break;
-					case "register":
-                    $this->panelHead_2='';
-                    break;
+		    case "login":
+                    	$this->panelHead_2='';
+                    	break;
+		    case "register":
+                    	$this->panelHead_2='';
+                    	break;
                     case "enthusiasts":
                         $this->panelHead_2='<h3>View Enthusiast Accounts</h3>';
                         break;
